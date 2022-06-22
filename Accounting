@@ -1,0 +1,105 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class HW2 {
+
+    public static void main(String[] args) throws IOException {
+
+        Scanner keyboard = new Scanner(System.in);
+
+        //input and output files
+        System.out.print("Enter the input file name: ");
+        String InputFile = keyboard.next();
+
+        System.out.print("Enter the output file name: ");
+        String OutputFile = keyboard.next();
+
+        //PrintWriter 
+        PrintWriter pw = new PrintWriter(OutputFile);
+
+        // open the file
+        File file = new File(InputFile);
+        Scanner inputFile = new Scanner(file);
+
+        //read data from file
+        while (inputFile.hasNext()) {
+        //Scan next line
+            String line = inputFile.nextLine();
+          
+        //tokenize the line
+            String[] tokens = line.split(",");
+
+        //display contents of the tokens array
+            for (String token : tokens) {
+                System.out.println(token);
+            }
+
+        //get first token and convert to a double
+            double price = Double.parseDouble(tokens[2]);
+
+        //get second token and convert to a double
+            double discount = Double.parseDouble(tokens[3]);
+
+        //total sum of the price 
+            double total = price - (price * (discount / 100));
+
+        //calculate tax
+            double tax = total * 0.08875;
+
+        //calculate the total of sum and tax
+            System.out.println("report from 01-09 to 01-30");
+            System.out.println("The total is " + total);
+            System.out.println("The tax is " + tax);
+
+        //calculate the max price
+            if (total > price) {
+                System.out.println("The highest price item is " + price);
+            } else {
+                System.out.println("The highest price item is " + total);
+            }
+
+        //calculate the lowest price
+            if (total < price) {
+                System.out.println("The lowest price item is " + price);
+            } else {
+                System.out.println("The lowest price item is " + total);
+            }
+
+        // Finish Scanning the report 
+            System.out.println("the report has been scanned completely.");
+        }
+
+//files closed 
+        inputFile.close();
+        pw.close();
+    }
+}
+
+Sample input:
+
+01-09
+111
+1.00
+0
+01-15
+222
+10.00
+10
+01-22
+333
+15.00
+0
+01-25
+444
+20.00
+0
+01-30
+555
+25.00
+5
+
+Report from 01-09 to 01-30
+The total is $65.7060625
+The tax is $6.30125
+The highest price item is #555 at $25
+The lowest price item is #111 at $1
